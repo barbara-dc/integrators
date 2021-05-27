@@ -24,7 +24,6 @@ matlabFunction(dFds_sym, 'vars', {t,s,u}, 'file', 'dFds');
 matlabFunction(dFdu_sym, 'vars', {t,s,u}, 'file', 'dFdu');
 
 % only for implicit euler
-
 r_sym = k - dynamics(t+h,s+h*k,u);
 nablar_sym = jacobian(r_sym,k);
 drds_sym = jacobian(r_sym,s);
@@ -34,6 +33,19 @@ matlabFunction(r_sym, 'vars', {t,s,u,k}, 'file', 'r');
 matlabFunction(nablar_sym, 'vars', {t,s,u,k}, 'file', 'nablar');
 matlabFunction(drds_sym, 'vars', {t,s,u,k}, 'file', 'drds');
 matlabFunction(drdu_sym, 'vars', {t,s,u,k}, 'file', 'drdu');
+
+% only for expl rk4
+k1_sym = dynamics(t,s,u);
+k2_sym = dynamics(t + 1/2 * h, s + 1/2 * h * k1_sym, u);
+k3_sym = dynamics(t + 1/2 * h, s + 1/2 * h * k2_sym, u);
+k4_sym = dynamics(t + h, s + h * k3_sym, u);
+s_sym = s + 1/6 * h * (k1_sym +2*k2_sym + 2*k3_sym + k4_sym);
+dsds_sym = jacobian(s_sym,s);
+dsdu_sym = jacobian(s_sym,u);
+
+matlabFunction(s_sym, 'vars', {t,s,u}, 'file', 's');
+matlabFunction(dsds_sym, 'vars', {t,s,u}, 'file', 'dsds');
+matlabFunction(dsdu_sym, 'vars', {t,s,u}, 'file', 'dsdu');
 
 %:)
 % [s,A,B] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
