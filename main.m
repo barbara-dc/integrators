@@ -1,3 +1,5 @@
+commandwindow
+
 s_init = [1;0];
 u_init = 0;
 t_init = 0;
@@ -24,13 +26,22 @@ matlabFunction(dFdu_sym, 'vars', {t,s,u}, 'file', 'dFdu');
 % only for implicit euler
 
 r_sym = k - dynamics(t+h,s+h*k,u);
-nablar_sym = jacobian(r_sym,k).';
+nablar_sym = jacobian(r_sym,k);
+drds_sym = jacobian(r_sym,s);
+drdu_sym = jacobian(r_sym,u);
 
 matlabFunction(r_sym, 'vars', {t,s,u,k}, 'file', 'r');
 matlabFunction(nablar_sym, 'vars', {t,s,u,k}, 'file', 'nablar');
+matlabFunction(drds_sym, 'vars', {t,s,u,k}, 'file', 'drds');
+matlabFunction(drdu_sym, 'vars', {t,s,u,k}, 'file', 'drdu');
 
 %:)
- [s,A,B] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+% [s,A,B] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
 % [x,A,B] = expl_euler_numerical_end(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
 % 
+ [s,A,B] = impl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
  [s,A,B] = impl_euler_numerical(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+ 
+ 
+ 
+ 

@@ -9,8 +9,17 @@ function [s,A,B] = impl_euler(t0,s,u,A,B,h,n_int)
             k_ = k_ - nablar(ti,s,u,k_).'\r(ti,s,u,k_);
         end
         
-        %A=(eye(length(s))+h*dFds_)*A;
-        %B=(eye(length(s))+h*dFds_)*B+h*dFdu_;
+       % [~,dFds_,dFdu_] = F(ti,s,u);
+        
+        dkds = -nablar(ti,s,u,k_).'\drds(ti,s,u,k_);
+        dkdu = -nablar(ti,s,u,k_).'\drdu(ti,s,u,k_);
+        
+        dphids = eye(length(s)) + h*dkds;
+        dphidu = h*dkdu;
+        
+        
+        A=dphids*A;
+        B=dphids*B+dphidu;
         
         s=s+h*k_;
     end

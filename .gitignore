@@ -1,6 +1,8 @@
-dynamics.m
-dFds.m
-dFdu.m
+#dynamics.m
+#dFds.m
+#dFdu.m
 r.m
 nablar.m
 *.asv
+drds.m
+drdu.m
