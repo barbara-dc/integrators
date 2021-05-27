@@ -1,3 +1,6 @@
 dynamics.m
 dFds.m
 dFdu.m
+r.m
+nablar.m
+*.asv
