@@ -1,4 +1,4 @@
-dynamics.m
+#dynamics.m
 dFds.m
 dFdu.m
 r.m
