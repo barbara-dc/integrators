@@ -39,7 +39,7 @@ matlabFunction(drdu_sym, 'vars', {t,s,u,k}, 'file', 'drdu');
 % [s,A,B] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
 % [x,A,B] = expl_euler_numerical_end(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
 % 
- [s,A,B] = impl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+ [s,A,B] = expl_rk4(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
  [s,A,B] = impl_euler_numerical(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
  
  
