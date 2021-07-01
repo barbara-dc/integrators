@@ -48,12 +48,27 @@ matlabFunction(dsds_sym, 'vars', {t,s,u}, 'file', 'dsds');
 matlabFunction(dsdu_sym, 'vars', {t,s,u}, 'file', 'dsdu');
 
 %:)
-% [s,A,B] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
-% [x,A,B] = expl_euler_numerical_end(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+ [s_e,A_e,B_e] = expl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+ [s_e_num,A_e_num,B_e_num] = expl_euler_numerical(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
 % 
- [s,A,B] = expl_rk4(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
- [s,A,B] = expl_euler_numerical_end(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+
+[s_end,A_end,B_end] = expl_euler_numerical_end(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,t_fin)
+[s_ind,A_ind,B_ind] = expl_euler_numerical_ind(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,t_fin)
+
+% [s_im,A_im,B_im] = impl_euler(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+% [s_im_num,A_im_num,B_im_num] = impl_euler_numerical(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+
+%s_im - s_im_num
  
+ [s_rk,A_rk,B_rk] = expl_rk4(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+ [s_rk_num,A_rk_num,B_rk_num] = expl_rk4_numerical(t_init,s_init,u_init,eye(ns),zeros(ns,nu),h,n_int)
+
+%s_rk - s_im
+%s_rk - s_e
  
+  tspan = [t_init t_fin];
+[~,s_ode] = ode45(@(t,s) dynamics(t,s,0), tspan, s_init)
  
+
+
  
