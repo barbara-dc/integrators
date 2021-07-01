@@ -1,6 +1,6 @@
 function [x_plus,A,B] = expl_euler_numerical_end(t0,x,u,A,B,h,Tfin)
     [x_plus,~] = expl_euler_variable(t0,x,u,h,Tfin);
-    epsilon = 1e-8;%sqrt(h);
+    epsilon = sqrt(h);
     nx = length(x);
     nu = length(u);
     A = zeros(nx);
